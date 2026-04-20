@@ -1,0 +1,18 @@
+numpy
+pandas 
+ # Face recognition
+scikit-learn
+dlib-bin  # Basically for face recognition
+
+ # to download from github repo (git+ git_link)
+git+https://github.com/ageitgey/face_recognition
+ # for use github source we have to use
+setuptools<70.0.0
+
+supabase # provide database for free
+bcrypt # provide method for hashing , handle data leakage
+
+segno # Generate Qrcode by passing url
+pillow # Image preprocessing
+
+streamlit # Frontend library
