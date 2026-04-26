@@ -18,7 +18,7 @@ def style_background_dashboard():
     st.markdown("""
         <style> 
                 .stApp{
-                    background: ##E0E3FF !important;
+                    background: #E0E3FF !important;
                 }
         </style>
                 """,
@@ -27,6 +27,7 @@ def style_background_dashboard():
 
 
 def style_base_layout():
+    #jhbdjbjf
     st.markdown("""
         <style> 
                 @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
@@ -35,12 +36,16 @@ def style_base_layout():
                 #MainMenu , header ,footer{
                     visibility:  hidden;
                 }
+                .stTextInput label {
+                    color: black !important;   
+                    font-weight: 600;
+                }
                 .block-container{
                     padding-top: 1.5rem !important;
                 }
                 h1{
                     font-family: "Climate Crisis",sans-serif !important;
-                    font-size: 3.5rem !important;
+                    font-size: 3vw !important;
                     line-height:1 !important;
                     margin-bottom: 0cm !important;
                     # color: #E0E3FF !important;
@@ -49,9 +54,11 @@ def style_base_layout():
                 h2{
                     font-family: "Climate Crisis",sans-serif !important;
                     font-size: 2rem !important;
-                    line-height: 1.1 !important;
+                    line-height: 1.2 !important;
                     margin-bottom: 0cm !important;
                     color: black !important;
+                    white-space: nowrap;
+                    font-weight: 550 !important;
                 }
                 h3, h4, p{
                     font-family: "Outfit", sans-serif;
