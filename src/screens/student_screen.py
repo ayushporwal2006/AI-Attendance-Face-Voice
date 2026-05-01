@@ -13,7 +13,7 @@ def student_screen():
     style_background_dashboard()
     style_base_layout()
 
-    if "student_data "in st.session_state:
+    if "student_data"in st.session_state:
         student_dashboard()
         return
     c1, c2 = st.columns(2, gap="xxlarge",vertical_alignment="center") 
