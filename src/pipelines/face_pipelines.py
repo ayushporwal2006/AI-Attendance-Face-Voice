@@ -1,7 +1,7 @@
 import numpy as np
 import dlib
 import face_recognition_models
-from sklearn.svm import svc
+from sklearn.svm import SVC
 import streamlit as st
 
 from src.database.db import get_all_students
@@ -32,7 +32,7 @@ def get_face_embeddings(image_np):
         face_descriptor = facerec.compute_face_descriptor(image_np,shape ,1)
 
         encodings.append(np.array(face_descriptor))
-        return encodings
+    return encodings
 @st.cache_resource
 def get_trained_model():
     X = []
@@ -52,13 +52,13 @@ def get_trained_model():
     if len(X)==0:
         return None
     
-    clf = svc(kernel = 'linear', probability = True, class_weight= "balanced")
+    clf = SVC(kernel = 'linear', probability = True, class_weight= "balanced")
 
     try:
         clf.fit(X,y)
     except ValueError:
         pass
-    return {'clf':clf, 'X':x, 'y':y}
+    return {'clf':clf, 'X':X, 'y':y}
 
 def train_classifier():
     st.cache_resource.clear()
@@ -71,7 +71,7 @@ def predict_attendance(class_image_np):
     detected_student = {}
     model_data = get_trained_model()
     if not model_data:
-        return detected_student,[],len(encodings)
+        return detected_student, [], len(encodings)
     
     clf = model_data['clf']
     X_train = model_data['X']
@@ -94,4 +94,4 @@ def predict_attendance(class_image_np):
         if best_match_score <= resemblance_threshold:
             detected_student[predicted_id] = True
     
-    return detected_student, all_students , len(encoding)
+    return detected_student, all_students , len(encodings)

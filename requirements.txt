@@ -16,3 +16,6 @@ segno # Generate Qrcode by passing url
 pillow # Image preprocessing
 
 streamlit # Frontend library
+
+librosa # to load , edit, modify audio files
+resemblyzer # create embedding of audio files to check the audio
