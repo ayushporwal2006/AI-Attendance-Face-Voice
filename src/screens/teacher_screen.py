@@ -1,8 +1,8 @@
 import streamlit as st
 from src.components.header import header_dashboard
 from src.ui.base_layout import style_background_dashboard , style_base_layout
-from src.database.db import check_teacher_exists, create_teacher , teacher_login
-
+from src.database.db import check_teacher_exists, create_teacher , teacher_login, create_subject , get_teacher_subjects
+from src.components.dialog_create_subject import create_subject_dialog
 def teacher_screen():
     style_background_dashboard()
     style_base_layout()
@@ -64,11 +64,18 @@ def teacher_dashboard():
 def teacher_tab_take_attendance():
     st.header("Take Student Attendance")
 def teacher_tab_manage_subjects():
+    teacher_id = st.session_state.teacher_data["teacher_id"]
     col1 , col2 = st.columns(2, gap= "large")
     with col1:
         st.markdown("""<h2> Manage<br>Subjects</h2>""", unsafe_allow_html=True)
     with col2:
-        st.button("Create Subject", type="secondary", width="stretch")
+        if st.button("Create Subject", type="secondary", width="stretch"):
+            create_subject_dialog(teacher_id)
+
+    # List all Subjects
+    subjects = get_teacher_subjects(teacher_id)
+    if subjects:
+        for subject in subjects:
     st.button("Share Code: Introduction to memes", icon=":material/share:", type="secondary")
 def teacher_tab_attendance_record():
     st.header("attendance_record")
