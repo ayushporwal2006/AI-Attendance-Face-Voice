@@ -75,7 +75,26 @@ def teacher_tab_manage_subjects():
     # List all Subjects
     subjects = get_teacher_subjects(teacher_id)
     if subjects:
-        for subject in subjects:
+        for sub in subjects:
+            stats = [   
+                ("🫂", "Students", sub["total_students"]),
+                ("🕰️", "Classes", sub["total_students"]),
+            ]
+        def share_btn():
+            if st.button(f"Share code: {sub['name']}", key = f"share_{sub["subject_code"]}", icon= ":material/share:"):
+                share_subject_dialog(sub['name'], sub['subject_code'])
+                st.space()
+
+        subject_card(
+            name = sub["name"],
+            code = sub["subject_code"],
+            section = sub["section"]
+            stats = stats,
+            footer_callback = share_btn
+        )
+    else:
+        st.info("No Subject Found! Create one Above")
+            
     st.button("Share Code: Introduction to memes", icon=":material/share:", type="secondary")
 def teacher_tab_attendance_record():
     st.header("attendance_record")
