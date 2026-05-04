@@ -8,7 +8,7 @@ def create_subject_dialog(teacher_id):
     st.write("Enter the details of New Subjects")
     sub_id = st.text_input("Subject Code", placeholder="CS301")
     sub_name = st.text_input("Subject",placeholder="Operating System")
-    sub_section = st.text_input("Section", palceholder="A")
+    sub_section = st.text_input("Section", placeholder="A")
 
     if st.button("Create Subject now",type="primary",width="stretch"):
         if sub_id and sub_name and sub_section:
