@@ -3,6 +3,7 @@ from src.components.header import header_dashboard
 from src.ui.base_layout import style_background_dashboard , style_base_layout
 from src.database.db import check_teacher_exists, create_teacher , teacher_login, create_subject , get_teacher_subjects
 from src.components.dialog_create_subject import create_subject_dialog
+from src.components.dialog_share_subject import share_subject_dialog
 from src.components.subject_card import subject_card
 def teacher_screen():
     style_background_dashboard()
@@ -97,7 +98,7 @@ def teacher_tab_manage_subjects():
     else:
         st.info("No Subject Found! Create one Above")
             
-    st.button("Share Code: Introduction to memes", icon=":material/share:", type="secondary")
+    # st.button("Share Code: Introduction to memes", icon=":material/share:", type="secondary")
 def teacher_tab_attendance_record():
     st.header("attendance_record")
 
