@@ -5,7 +5,7 @@ from src.components.header import header_dashboard
 from src.ui.base_layout import style_background_dashboard , style_base_layout
 from src.pipelines.face_pipelines import predict_attendance, get_face_embeddings, train_classifier
 from src.pipelines.voice_pipeline import get_voice_embeddings
-from src.database.db import get_all_students , create_student,  get_student_attendance , unenroll_student_to_subject
+from src.database.db import get_all_students , create_student,  get_student_attendance ,get_student_subjects, unenroll_student_to_subject
 from src.components.dialog_enroll import enroll_dialog  
 from src.components.subject_card import subject_card
 import time
@@ -25,18 +25,21 @@ def student_dashboard():
             st.rerun()
     st.space()
 
-    c1, c2= st.columns(2, gap="large")
+    c1, c2= st.columns(2)
     with c1:
-        st.header("Your Enrolled Subjects")
+        st.header("Your Enrolled")
+        st.header("Subjects")
     with c2:
+        st.space()
+        st.space()
         if st.button("Enroll in subject", type='primary',width="stretch"):
             enroll_dialog()
 
     st.divider()
 
-    st.spinner("Loading the enrolled subjects")
-    subjects = get_student_subjects(student_id)
-    logs = get_student_attendance(student_id)
+    with st.spinner("Loading the enrolled subjects"):
+        subjects = get_student_subjects(student_id)
+        logs = get_student_attendance(student_id)
 
     stats_map = {}
 
@@ -58,11 +61,11 @@ def student_dashboard():
 
         stats = stats_map.get(sid, {'total':0 , 'attended':0})
         def unenroll_button():
-            if st.button("Unenroll from the course", type="tertiary", width="stretch", icon=":material/delete_forever:"):
+            if st.button("Unenroll from the course",key=f"unenroll_{sid}", type="tertiary", width="stretch", icon=":material/delete_forever:"):
                 unenroll_student_to_subject(student_id, sid)
                 st.toast(f"Unenroll from {sub['name']} succesfully!")
                 st.rerun()
-        with cols(i%2):
+        with cols[i%2]:
             subject_card(
                 name = sub['name'],
                 code = sub["subject_code"],
@@ -71,7 +74,7 @@ def student_dashboard():
                     ('📅', 'Total', stats['total']),
                     ('✅', 'Attended', stats['attended']),
                 ],
-                footer_callback= unenroll_button()
+                footer_callback= unenroll_button
             )
 
 def student_screen():
