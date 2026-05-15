@@ -21,13 +21,13 @@ def get_voice_embeddings(audio_bytes):  #Convert uploaded audio → 256-dimensio
         return None
 
 def identify_speaker(new_embedding, candidate_dict, threshold =0.65): # Compare new voice with stored voices → find match
-    if not new_embedding or not candidate_dict:
+    if  new_embedding is None or len(candidate_dict)==0:
         return None, 0.0
     
     best_sid = None  # sid = student id
     best_score = -1.0
 
-    for sid, stored_embedding in candidate_dict: #Each student → compare voice
+    for sid, stored_embedding in candidate_dict.items(): #Each student → compare voice
         if stored_embedding:
             similarity = np.dot(new_embedding, stored_embedding) # vectors jitne jyada close honge utni similarity hogi
             if similarity > best_score:
@@ -43,7 +43,7 @@ def process_bulk_audio(audio_bytes,candidate_dict,threshold =0.65): #Handle long
      try:
         encoder = VoiceEncoder()
 
-        audio , sr = librosa.load(io.bytesIO(audio_bytes), sr =16000) # more sample rate(sr) means more clear sound 
+        audio , sr = librosa.load(io.BytesIO(audio_bytes), sr =16000) # more sample rate(sr) means more clear sound 
         segment = librosa.effects.split(audio , top_db=30)# to provide long audio into segment and skip where no voice or less voice
                                                 # top_db = remove silence keep only speech part
         identified_result = {}
@@ -58,13 +58,13 @@ def process_bulk_audio(audio_bytes,candidate_dict,threshold =0.65): #Handle long
             sid, score = identify_speaker(embedding,candidate_dict,threshold)
 
             if sid:
-                if sid not in identify_speaker or score > identified_result[sid]:
+                if sid not in identified_result or score > identified_result[sid]:
                     identified_result[sid] = score
 
         return identified_result
      except Exception as e:
-         st.error("Bulk process error")
-         return {}
+        st.error(f"Bulk process error: {e}")
+        return {}
 
 
 

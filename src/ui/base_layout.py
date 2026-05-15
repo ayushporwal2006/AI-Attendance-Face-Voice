@@ -33,15 +33,18 @@ def style_base_layout():
                 @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
                 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
             /*  Hide top bar of streamlit */
-                # #MainMenu , header ,footer{
-                #     visibility:  hidden;
-                # }
+                #MainMenu , header ,footer{
+                    visibility:  hidden;
+                }
                 .stTextInput label {
                     color: black !important;   
                     font-weight: 600;
                 }
                 .block-container{
                     padding-top: 1.5rem !important;
+                }
+                .stButton button {
+                    color: black !important;
                 }
                 h1{
                     font-family: "Climate Crisis",sans-serif !important;
@@ -90,6 +93,7 @@ def style_base_layout():
                 button:hover{
                     transform :scale(1.05) 
                 }
+                
         </style>
                 """,
              unsafe_allow_html=True
