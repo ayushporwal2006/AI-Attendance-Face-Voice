@@ -7,7 +7,7 @@ from src.database.db import create_subject
 
 @st.dialog("Share class link")
 def share_subject_dialog(subject_name, subject_code):
-    app_domain = "http://localhost:8501/"
+    app_domain = "snapclass-main.streamlit.app"
     join_url = f"{app_domain}/?join-code={subject_code}"
 
     st.header("Scan to join")
