@@ -103,10 +103,13 @@ def student_screen():
         with st.spinner("AI is scanning ...."):
             detected, all_ids , num_faces = predict_attendance(img)
 
-            if num_faces ==0:
+            if num_faces == 0:
                 st.warning("No face found!")
-            elif num_faces >1:
+                show_registration = True
+
+            elif num_faces > 1:
                 st.warning("Multiple faces found!")
+
             else:
                 if detected:
                     student_id = list(detected.keys())[0]
