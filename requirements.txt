@@ -3,9 +3,7 @@ numpy
 pandas 
  # Face recognition
 scikit-learn
-dlib-bin
-cmake
-build-essential
+dlib
  # to download from github repo (git+ git_link)
 git+https://github.com/ageitgey/face_recognition
  # for use github source we have to use
