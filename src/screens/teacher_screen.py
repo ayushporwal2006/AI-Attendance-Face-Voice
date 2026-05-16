@@ -175,8 +175,8 @@ def teacher_tab_manage_subjects():
     if subjects:
         for sub in subjects:
             stats = [   
-                ("🫂", "Students", sub["total_students"]),
-                ("🕰️", "Classes", sub["total_classes"]),
+                ("🫂", "<span style='color:black'>Students</span>", f"<span style='color:black'>{sub['total_students']}</span>"),
+                ("🕰️", "<span style='color:black'>Classes</span>", f"<span style='color:black'>{sub['total_classes']}</span>")
             ]
             def share_btn():
                 if st.button(f"Share code: {sub['name']}", key = f"share_{sub["subject_code"]}", icon= ":material/share:"):
@@ -186,7 +186,7 @@ def teacher_tab_manage_subjects():
 
             subject_card(   
                 name = sub["name"],
-                code = sub["subject_code"],
+                code = f"<span style='background-color:pink'>{sub["subject_code"]}</span>",
                 section = sub["section"],
                 stats = stats,
                 footer_callback = share_btn
@@ -318,7 +318,7 @@ def teacher_screen_login():
     cb1, cb2 = st.columns(2, gap="xxlarge",vertical_alignment="center")
 
     with cb1:
-        if st.button("Login",type = "secondary",shortcut="control+enter", icon=":material/passkey:", width="stretch" ):
+        if st.button("Login",type = "secondary",key= "login",shortcut="control+enter", icon=":material/passkey:", width="stretch" ):
             if login_teacher(teacher_username, teacher_pass):
                 st.toast("Welcome! back", icon="👋")
                 import time

@@ -51,7 +51,7 @@ def student_dashboard():
 
         stats_map[sid]['total'] +=1
 
-        if logs.get('is present'):
+        if log.get('is present'):
             stats_map[sid]["attended"] +=1
 
     cols = st.columns(2)
@@ -71,8 +71,8 @@ def student_dashboard():
                 code = sub["subject_code"],
                 section = sub['section'],
                 stats = [
-                    ('📅', 'Total', stats['total']),
-                    ('✅', 'Attended', stats['attended']),
+                    ('📅',  "<span style='color:black'>Total</span>", f"<span style='color:black'>{stats['total']}</span>"),
+                    ('✅', "<span style='color:black'>Attended</span>", f"<span style='color:black'>{stats['attended']}</span>"),
                 ],
                 footer_callback= unenroll_button
             )

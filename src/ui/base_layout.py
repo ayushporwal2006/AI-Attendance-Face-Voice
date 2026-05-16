@@ -46,6 +46,15 @@ def style_base_layout():
                 .stButton button {
                     color: black !important;
                 }
+                .stSpinner p{
+                    color: black !important;
+                }
+                [data-testid="stAlertContentWarning"] p{
+                    color: black !important;
+                }
+                [data-testid="stCameraInput"] label {
+                    color: black !important;
+                }
                 h1{
                     font-family: "Climate Crisis",sans-serif !important;
                     font-size: 1.8vw !important;
@@ -66,6 +75,7 @@ def style_base_layout():
                 h3, h4, p{
                     font-family: "Outfit", sans-serif;
                 }
+                
                 button{
                     color: white !important;
                     background-color: #5865F2 !important;
