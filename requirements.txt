@@ -1,6 +1,7 @@
 streamlit # Frontend library
 numpy
 pandas 
+dlib
  # Face recognition
 scikit-learn
 dlib-bin
