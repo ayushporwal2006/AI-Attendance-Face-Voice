@@ -1,12 +1,11 @@
 streamlit # Frontend library
 numpy
-pandas 
-dlib
+pandas
  # Face recognition
 scikit-learn
 dlib-bin
  # to download from github repo (git+ git_link)
-git+https://github.com/ageitgey/face_recognition
+git+https://github.com/ageitgey/face_recognition_models
  # for use github source we have to use
 setuptools<70.0.0
 

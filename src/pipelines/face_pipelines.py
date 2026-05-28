@@ -10,6 +10,7 @@ from src.database.db import get_all_students
 @st.cache_resource
 def load_dlib_models():
     # detect the face based on boundary
+    
     detector = dlib.get_frontal_face_detector()
 
     sp = dlib.shape_predictor(
