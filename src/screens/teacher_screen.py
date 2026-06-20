@@ -202,13 +202,6 @@ def teacher_tab_attendance_record():
     records = get_attendance_for_teacher(teacher_id)
     st.write("Teacher ID:", teacher_id)
 
-    for r in records:
-        st.write(
-            "Subject:", r["subject_id"],
-            "Student:", r["student_id"],
-            "Present:", r["is_present"],
-            "Time:", r["timestamp"]
-        )
     
     if not records:
         return
