@@ -14,12 +14,12 @@ def show_attendance_result(df, logs):
 
     with col2:
         if st.button("Confirm and Save", width="stretch", type="primary"):
+            st.write(logs)
+        
             try:
-                create_attendance(logs)
-                st.toast("Attendance taken")
-                st.session_state.attendance_images = []
-                st.session_state.voice_attendance_results = None
-                st.rerun()
+                result = create_attendance(logs)
+                st.write(result)
+                st.success("Attendance Saved")
             except Exception as e:
                 st.error("Sync failed!")
                 print(e)
