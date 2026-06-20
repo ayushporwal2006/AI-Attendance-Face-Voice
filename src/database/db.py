@@ -77,7 +77,12 @@ def get_student_attendance(student_id):
     return response.data
 
 def create_attendance(logs):
+    print("LOGS TO SAVE:", logs)
+
     response = supabase.table("attendance_logs").insert(logs).execute()
+
+    print("SUPABASE RESPONSE:", response.data)
+
     return response.data
 
 def get_attendance_for_teacher(teacher_id):
