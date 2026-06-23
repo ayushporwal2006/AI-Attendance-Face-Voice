@@ -42,6 +42,11 @@ def student_dashboard():
         logs = get_student_attendance(student_id)
 
     stats_map = {}
+    def unenroll_button():
+        if st.button("Unenroll from the course",key=f"unenroll_{sid}", type="tertiary", width="stretch", icon=":material/delete_forever:"):
+            unenroll_student_to_subject(student_id, sid)
+            st.toast(f"Unenroll from {sub['name']} succesfully!")
+            st.rerun()
 
     for log in logs:
         sid = log['subject_id']
@@ -60,21 +65,17 @@ def student_dashboard():
         sid = sub["subject_id"]
 
         stats = stats_map.get(sid, {'total':0 , 'attended':0})
-        def unenroll_button():
-            if st.button("Unenroll from the course",key=f"unenroll_{sid}", type="tertiary", width="stretch", icon=":material/delete_forever:"):
-                unenroll_student_to_subject(student_id, sid)
-                st.toast(f"Unenroll from {sub['name']} succesfully!")
-                st.rerun()
-        with cols[i%2]:
+        
+       with cols[i%2]:
             subject_card(
-                name = sub['name'],
-                code = sub["subject_code"],
-                section = sub['section'],
-                stats = [
-                    ('📅',  "<span style='color:black'>Total</span>", f"<span style='color:black'>{stats['total']}</span>"),
-                    ('✅', "<span style='color:black'>Attended</span>", f"<span style='color:black'>{stats['attended']}</span>"),
+                name=sub['name'],
+                code=sub['subject_code'],
+                section=sub['section'],
+                stats=[
+                    ('🗓️','Total',stats['total']),
+                    ('✅','Attended',stats['attended']),
                 ],
-                footer_callback= unenroll_button
+                footer_callback=unenroll_btn
             )
 
 def student_screen():
@@ -91,12 +92,13 @@ def student_screen():
         if st.button("Go back to home",type="secondary", key="loginbackhome", shortcut="control+backspace"):
             st.session_state["login_type"] = None
             st.rerun()
-    st.header("Login with FaceID",text_alignment="center",)
+    st.header("Login Using Passwrod",text_alignment='center')
     st.space()
     st.space()
-    show_registration = False
-    photo_source = st.camera_input("Position your face in center")
+    st.header("Login Using FaceID",text_alignment='center')
+    photo_source=st.camera_input("Position your face in the center")
 
+    show_registration = False
     if photo_source:
         img = np.array(Image.open(photo_source))
 
