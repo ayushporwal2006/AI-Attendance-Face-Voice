@@ -41,7 +41,7 @@ def identify_speaker(new_embedding, candidate_dict, threshold =0.65): # Compare 
 
 def process_bulk_audio(audio_bytes,candidate_dict,threshold =0.65): #Handle long audio → split → identify multiple speakers
      try:
-        encoder = VoiceEncoder()
+        encoder = voice_encoder()
 
         audio , sr = librosa.load(io.BytesIO(audio_bytes), sr =16000) # more sample rate(sr) means more clear sound 
         segment = librosa.effects.split(audio , top_db=30)# to provide long audio into segment and skip where no voice or less voice
