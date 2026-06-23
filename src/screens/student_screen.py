@@ -66,7 +66,7 @@ def student_dashboard():
 
         stats = stats_map.get(sid, {'total':0 , 'attended':0})
         
-       with cols[i%2]:
+        with cols[i%2]:
             subject_card(
                 name=sub['name'],
                 code=sub['subject_code'],
