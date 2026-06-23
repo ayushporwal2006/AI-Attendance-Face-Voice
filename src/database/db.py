@@ -77,14 +77,7 @@ def get_student_attendance(student_id):
     return response.data
 
 def create_attendance(logs):
-    print("=== LOGS ===")
-    print(logs)
-
-    response = supabase.table("attendance_logs").insert(logs).execute()
-
-    print("=== RESPONSE ===")
-    print(response)
-
+    response=supabase.table('attendance_logs').insert(logs).execute()  
     return response.data
 
 def get_attendance_for_teacher(teacher_id):
