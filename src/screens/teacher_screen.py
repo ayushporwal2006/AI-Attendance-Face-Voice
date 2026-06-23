@@ -209,7 +209,7 @@ def teacher_tab_attendance_record():
         ts = r.get('timestamp')
         data.append({
             "ts_group": ts.split(".")[0] if ts else None,
-            "Time": datetime.fromisoformat(ts).strftime("%Y-%m-%d %I:%M %p") if ts else "N'A",
+            "Time": datetime.fromisoformat(ts).strftime("%Y-%m-%d %I:%M:%p") if ts else "N'A",
             "Subject":r["subjects"]['name'],
             "Subject code":r['subjects']['subject_code'],
             "is_present": bool(r.get('is_present', False))
@@ -223,11 +223,11 @@ def teacher_tab_attendance_record():
     ).reset_index()
 
     summary['Attendance Stats'] = (
-        "✅" +summary['Present_count'].astype('str') + " /"+ summary["Total_count"].astype('str') + ' Students'
+        "✅" +summary['Present_count'].astype(str) + " /"+ summary["Total_count"].astype(str) + ' Students'
     )
 
     display_df = (summary.sort_values(by='ts_group', ascending=False)
-                  [["Time", "Subject", "Subject code", "Attendance Stats"]]
+                  [["Time", "Subject", "Subject Code", "Attendance Stats"]]
                   )
     st.dataframe(display_df, width="stretch", hide_index= True)
 
