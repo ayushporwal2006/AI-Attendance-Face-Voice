@@ -20,9 +20,7 @@ def teacher_screen():
     
     if "teacher_data" in st.session_state:
         teacher_dashboard()
-        return
-    
-    if 'teacher_login_type' not in st.session_state or st.session_state.teacher_login_type=="login":
+    elif 'teacher_login_type' not in st.session_state or st.session_state.teacher_login_type=="login":
         teacher_screen_login()
     elif st.session_state.teacher_login_type=="register":
         teacher_screen_register()
@@ -137,10 +135,11 @@ def teacher_tab_take_attendance():
                     current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
                     for node in enrolled_student:
-                        student = node["students"]
-                        sources = all_detected_ids.get(int(student["student_id"]),[])
-
-                        is_present = len(sources)>0
+                        student = node.get("students")
+                        if not student:
+                            continue
+                        sources=all_detected_id.get(int(student['student_id']),[])
+                        is_present=len(sources)>0
 
                         results.append({
                             "Name": student['name'],
@@ -181,8 +180,7 @@ def teacher_tab_manage_subjects():
             def share_btn():
                 if st.button(f"Share code: {sub['name']}", key = f"share_{sub["subject_code"]}", icon= ":material/share:"):
                     share_subject_dialog(sub['name'], sub['subject_code'])
-                    st.space()
-                    pass
+                st.space()
 
             subject_card(   
                 name = sub["name"],
@@ -200,11 +198,9 @@ def teacher_tab_attendance_record():
 
     teacher_id = st.session_state.teacher_data['teacher_id']
     records = get_attendance_for_teacher(teacher_id)
-    st.write(records)
-    # st.write("Teacher ID:", teacher_id)
-
-    
+   
     if not records:
+        st.info("No attendance records found yet !!")
         return
     
     data = []
@@ -221,13 +217,10 @@ def teacher_tab_attendance_record():
 
     df = pd.DataFrame(data)
 
-    summary = (
-        df.groupby(["ts_group","Time","Subject","Subject code"])
-        .agg(
-            Present_count =('is_present','sum'),
-            Total_count = ('is_present','count')
-        ).reset_index()
-    )
+    summary=df.groupby(['ts_group','Time','Subject', 'Subject Code']).agg(
+        Present_count=('is_present','sum'),
+        Total_count=('is_present','count')
+    ).reset_index()
 
     summary['Attendance Stats'] = (
         "✅" +summary['Present_count'].astype('str') + " /"+ summary["Total_count"].astype('str') + ' Students'
