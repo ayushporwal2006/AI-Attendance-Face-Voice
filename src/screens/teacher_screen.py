@@ -138,7 +138,7 @@ def teacher_tab_take_attendance():
                         student = node.get("students")
                         if not student:
                             continue
-                        sources=all_detected_id.get(int(student['student_id']),[])
+                        sources=all_detected_ids.get(int(student['student_id']),[])
                         is_present=len(sources)>0
 
                         results.append({
