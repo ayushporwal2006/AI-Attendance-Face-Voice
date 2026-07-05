@@ -34,7 +34,7 @@ def voice_attendance_dialog(selected_subject_id):
 
             results,attendance_to_log=[],[]
             current_timestamps=datetime.now().isoformat(timespec="seconds")
-            for node in enrolled_students:
+            for node in enrolled_student:
                 student=node.get('students')
                 if not student:
                     continue
