@@ -158,6 +158,7 @@ def teacher_tab_take_attendance():
 
     with c3:
         if st.button("Use Voice Attendance", type='primary', width='stretch',icon = ":material/mic:"):
+            st.session_state.voice_attendance_results = None
             voice_attendance_dialog(selected_subject_id)
 
 def teacher_tab_manage_subjects():
