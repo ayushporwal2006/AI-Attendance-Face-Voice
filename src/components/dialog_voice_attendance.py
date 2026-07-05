@@ -14,6 +14,9 @@ def voice_attendance_dialog(selected_subject_id):
     audio_data = st.audio_input("Record classroom audio!")
 
     if st.button("Analyze audio", width='stretch', type='primary'):
+        if audio_data is None:
+            st.warning("Please record classroom audio first!")
+            return
         with st.spinner("Processing Audio data"):
             enrolled_res = supabase.table('subject_student').select("* , students(*)").eq("subject_id",selected_subject_id ).execute()
             enrolled_student = enrolled_res.data
@@ -56,8 +59,7 @@ def voice_attendance_dialog(selected_subject_id):
                 })
             st.session_state.voice_attendance_results = (pd.DataFrame(results), attendance_to_log)
 
-            if st.session_state.get('voice_attendance_results'):
-                st.divider()
-                df_results, logs = st.session_state.voice_attendance_results
-                show_attendance_result(df_results, logs)
-
+    if st.session_state.get('voice_attendance_results'):
+        st.divider()
+        df_results, logs = st.session_state.voice_attendance_results
+        show_attendance_result(df_results, logs)
