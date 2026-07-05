@@ -38,7 +38,7 @@ def voice_attendance_dialog(selected_subject_id):
                 student=node.get('students')
                 if not student:
                     continue
-                scores=detected_scores.get(student['student_id'],0.0)
+                score=detected_scores.get(student['student_id'],0.0)
                 is_present=bool(scores>0)
 
                 results.append({
